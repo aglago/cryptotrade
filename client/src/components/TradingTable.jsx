@@ -5,7 +5,7 @@ const TradingTable = ({ trades, darkMode }) => (
   <div className="overflow-x-auto">
     <table className="w-full text-center border-separate border-spacing-y-4 sm:border-spacing-y-6">
       <thead className="hidden sm:table-header-group">
-        <tr className="text-gray-400">
+        <tr className={`${darkMode ? "text-gray-400" : "text-gray-800"}`}>
           <th className="py-2 px-2 sm:px-4">#</th>
           <th className="py-2 px-2 sm:px-4">Platform</th>
           <th className="py-2 px-2 sm:px-4">Last Traded Price</th>
