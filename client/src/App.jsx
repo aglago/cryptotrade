@@ -17,7 +17,9 @@ const App = () => {
   useEffect(() => {
     const fetchTickers = async () => {
       try {
-        const response = await fetch("http://localhost:3000/api/tickers");
+        const response = await fetch(
+          "https://cryptotrade-1gi2.onrender.com/api/tickers"
+        );
         const data = await response.json();
         setTickers(data);
 

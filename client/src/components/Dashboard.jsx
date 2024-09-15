@@ -1,11 +1,10 @@
-import PropTypes from "prop-types"; // Import PropTypes
-import { useState, useEffect } from "react";
+import PropTypes from "prop-types";
+import { useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import PriceStats from "./PriceStats";
 import TradingTable from "./TradingTable";
 
-const Dashboard = ({ selectedCoin, selectedCurrency, darkMode }) => {
-  const [tickers, setTickers] = useState([]);
+const Dashboard = ({ selectedCoin, selectedCurrency, tickers, darkMode }) => {
   const { pair } = useParams();
   const navigate = useNavigate();
 
@@ -15,23 +14,6 @@ const Dashboard = ({ selectedCoin, selectedCurrency, darkMode }) => {
       navigate(`/${selectedCoin}-${selectedCurrency}`, { replace: true });
     }
   }, [pair, selectedCoin, selectedCurrency, navigate]);
-
-  useEffect(() => {
-    const fetchTickers = async () => {
-      try {
-        const response = await fetch("http://localhost:3000/api/tickers");
-        const data = await response.json();
-        setTickers(data);
-      } catch (error) {
-        console.error("Error fetching tickers:", error);
-      }
-    };
-
-    fetchTickers();
-    const interval = setInterval(fetchTickers, 60000); // Fetch every minute
-
-    return () => clearInterval(interval);
-  }, []);
 
   const calculateStats = () => {
     if (tickers.length === 0) return [[], "0"];
@@ -110,10 +92,7 @@ const Dashboard = ({ selectedCoin, selectedCurrency, darkMode }) => {
           selectedCurrency={selectedCurrency}
           darkMode={darkMode}
         />
-        <TradingTable
-          trades={formatTrades()}
-          darkMode={darkMode}
-        />
+        <TradingTable trades={formatTrades()} darkMode={darkMode} />
       </main>
     </div>
   );
@@ -122,6 +101,7 @@ const Dashboard = ({ selectedCoin, selectedCurrency, darkMode }) => {
 Dashboard.propTypes = {
   selectedCoin: PropTypes.string.isRequired,
   selectedCurrency: PropTypes.string.isRequired,
+  tickers: PropTypes.array.isRequired,
   darkMode: PropTypes.bool.isRequired,
 };
 

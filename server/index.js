@@ -13,8 +13,8 @@ const PORT = process.env.PORT || 3000;
 // CORS configuration
 app.use(
   cors({
-    origin: "http://localhost:5173", // Allow your React app's origin
-    methods: ["GET"], // Allow only GET requests
+    origin: "https://cryptotrade-phi.vercel.app/",
+    methods: ["GET"],
     allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
@@ -61,7 +61,7 @@ const fetchAndStoreTickers = async () => {
           volume: parseFloat(ticker.volume), // Volume
           base_unit: ticker.base_unit, // Base unit
         },
-        { upsert: true, new: true } // Update if exists, insert if not
+        { upsert: true, new: true } 
       );
     }
     console.log("Top 10 tickers updated successfully.");
