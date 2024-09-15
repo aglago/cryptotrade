@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 
-const PriceStats = ({ stats, selectedCoin, selectedCurrency }) => {
+const PriceStats = ({ stats, selectedCoin, selectedCurrency, darkMode }) => {
   // Safeguard against undefined stats
   if (!stats || !Array.isArray(stats) || stats.length < 2) {
     return <div>Loading...</div>;
@@ -14,7 +14,7 @@ const PriceStats = ({ stats, selectedCoin, selectedCurrency }) => {
   }
 
   return (
-    <div className="bg-gray-900 text-white p-4 mx-auto">
+    <div className={`${darkMode ? "bg-gray-900" : ""} text-white p-4 mx-auto`}>
       <h2 className="text-lg text-gray-500 font-semibold mb-2 text-center">
         Best Price to Trade
       </h2>
@@ -33,7 +33,7 @@ const PriceStats = ({ stats, selectedCoin, selectedCurrency }) => {
           ))}
         </div>
         <div className="text-center w-full sm:w-2/4 my-4">
-          <div className="text-4xl lg:text-6xl md:text-5xl font-bold">
+          <div className={`text-4xl ${darkMode ? "text-white" : "text-teal-950"} lg:text-6xl md:text-5xl font-bold`}>
             ₹{" "}
             {typeof currentPrice === "number"
               ? currentPrice.toLocaleString()
@@ -75,6 +75,7 @@ PriceStats.propTypes = {
   ),
   selectedCoin: PropTypes.string.isRequired,
   selectedCurrency: PropTypes.string.isRequired,
+  darkMode: PropTypes.bool.isRequired,
 };
 
 export default PriceStats;

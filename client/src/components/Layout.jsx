@@ -8,15 +8,19 @@ const Layout = ({
   selectedCurrency,
   setSelectedCurrency,
   tickers,
+  darkMode,
+  setDarkMode
 }) => {
   return (
-    <div className="bg-gray-900 min-h-screen">
+    <div className={`${darkMode? "bg-gray-900" : ""} min-h-screen`}>
       <Header
         selectedCoin={selectedCoin}
         setSelectedCoin={setSelectedCoin}
         selectedCurrency={selectedCurrency}
         setSelectedCurrency={setSelectedCurrency}
         tickers={tickers}
+        darkMode={darkMode}
+        setDarkMode={setDarkMode}
       />
       {children}
     </div>
@@ -38,6 +42,8 @@ Layout.propTypes = {
       name: PropTypes.string.isRequired,
     })
   ).isRequired,
+  darkMode: PropTypes.bool.isRequired,
+  setDarkMode: PropTypes.func.isRequired
 };
 
 export default Layout;

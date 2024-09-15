@@ -4,7 +4,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import PriceStats from "./PriceStats";
 import TradingTable from "./TradingTable";
 
-const Dashboard = ({ selectedCoin, selectedCurrency }) => {
+const Dashboard = ({ selectedCoin, selectedCurrency, darkMode }) => {
   const [tickers, setTickers] = useState([]);
   const { pair } = useParams();
   const navigate = useNavigate();
@@ -102,14 +102,18 @@ const Dashboard = ({ selectedCoin, selectedCurrency }) => {
   const stats = calculateStats();
 
   return (
-    <div className="bg-gray-900 text-white min-h-screen">
+    <div className={`text-white min-h-screen`}>
       <main className="container mx-auto px-4">
         <PriceStats
           stats={stats}
           selectedCoin={selectedCoin}
           selectedCurrency={selectedCurrency}
+          darkMode={darkMode}
         />
-        <TradingTable trades={formatTrades()} />
+        <TradingTable
+          trades={formatTrades()}
+          darkMode={darkMode}
+        />
       </main>
     </div>
   );
@@ -118,6 +122,7 @@ const Dashboard = ({ selectedCoin, selectedCurrency }) => {
 Dashboard.propTypes = {
   selectedCoin: PropTypes.string.isRequired,
   selectedCurrency: PropTypes.string.isRequired,
+  darkMode: PropTypes.bool.isRequired,
 };
 
 export default Dashboard;

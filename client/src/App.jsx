@@ -12,6 +12,7 @@ const App = () => {
   const [selectedCoin, setSelectedCoin] = useState("");
   const [selectedCurrency, setSelectedCurrency] = useState("INR");
   const [tickers, setTickers] = useState([]);
+  const [darkMode, setDarkMode] = useState(true);
 
   useEffect(() => {
     const fetchTickers = async () => {
@@ -29,39 +30,44 @@ const App = () => {
     };
 
     fetchTickers();
-    const interval = setInterval(fetchTickers, 60000); // Fetch every minute
+    const interval = setInterval(fetchTickers, 60000);
 
     return () => clearInterval(interval);
   }, [selectedCoin]);
 
   return (
     <Router>
-      <Layout
-        selectedCoin={selectedCoin}
-        setSelectedCoin={setSelectedCoin}
-        selectedCurrency={selectedCurrency}
-        setSelectedCurrency={setSelectedCurrency}
-        tickers={tickers}
-      >
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <Navigate to={`/${selectedCoin}-${selectedCurrency}`} replace />
-            }
-          />
-          <Route
-            path="/:pair"
-            element={
-              <Dashboard
-                selectedCoin={selectedCoin}
-                selectedCurrency={selectedCurrency}
-                tickers={tickers}
-              />
-            }
-          />
-        </Routes>
-      </Layout>
+      <div className={darkMode ? "dark" : ""}>
+        <Layout
+          selectedCoin={selectedCoin}
+          setSelectedCoin={setSelectedCoin}
+          selectedCurrency={selectedCurrency}
+          setSelectedCurrency={setSelectedCurrency}
+          tickers={tickers}
+          darkMode={darkMode}
+          setDarkMode={setDarkMode}
+        >
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <Navigate to={`/${selectedCoin}-${selectedCurrency}`} replace />
+              }
+            />
+            <Route
+              path="/:pair"
+              element={
+                <Dashboard
+                  selectedCoin={selectedCoin}
+                  selectedCurrency={selectedCurrency}
+                  tickers={tickers}
+                  darkMode={darkMode}
+                />
+              }
+            />
+          </Routes>
+        </Layout>
+      </div>
     </Router>
   );
 };

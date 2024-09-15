@@ -2,6 +2,7 @@ import PropTypes from "prop-types";
 import { Moon, Send, Sun } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import CircularProgress from "./CircularProgress";
 
 const Header = ({
   selectedCoin,
@@ -9,8 +10,9 @@ const Header = ({
   selectedCurrency,
   setSelectedCurrency,
   tickers,
+  darkMode,
+  setDarkMode,
 }) => {
-  const [isDarkMode, setIsDarkMode] = useState(true);
   const [timer, setTimer] = useState(60);
   const navigate = useNavigate();
 
@@ -40,14 +42,18 @@ const Header = ({
       </h1>
       <div className="flex space-x-2 md:space-x-4 w-full md:w-auto">
         <select
-          className="bg-gray-700 text-white p-2 rounded-lg text-sm md:text-base flex-grow md:flex-grow-0"
+          className={`${
+            darkMode ? "bg-gray-700 text-white" : "bg-gray-100 text-black"
+          } p-2 rounded-lg text-sm md:text-base flex-grow md:flex-grow-0`}
           onChange={handleCurrencyChange}
           value={selectedCurrency}
         >
           <option value="INR">INR</option>
         </select>
         <select
-          className="bg-gray-700 text-white p-2 rounded-lg text-sm md:text-base flex-grow md:flex-grow-0"
+          className={`${
+            darkMode ? "bg-gray-700 text-white" : "bg-gray-100 text-black"
+          } p-2 rounded-lg text-sm md:text-base flex-grow md:flex-grow-0`}
           onChange={handleCoinChange}
           value={selectedCoin}
         >
@@ -60,22 +66,24 @@ const Header = ({
             </option>
           ))}
         </select>
-        <button className="bg-gray-700 text-white px-4 py-2 rounded-lg text-sm md:text-base flex-grow md:flex-grow-0">
+        <button
+          className={`${
+            darkMode ? "bg-gray-700 text-white" : "bg-gray-100 text-black"
+          } p-2 rounded-lg text-sm md:text-base flex-grow md:flex-grow-0`}
+        >
           BUY {selectedCoin}
         </button>
       </div>
       <div className="flex justify-between md:justify-start items-center space-x-4 w-full md:w-auto">
-        <div className="border-4 border-teal-500 text-white p-2 rounded-full w-10 h-10 flex items-center justify-center text-sm md:text-base">
-          {timer}
-        </div>
+        <CircularProgress value={timer} max={60} size={40} />
         <button className="bg-teal-500 text-white px-4 py-2 rounded-xl flex items-center text-sm md:text-base">
           <Send size={16} className="mr-2" /> Connect Telegram
         </button>
         <button
-          onClick={() => setIsDarkMode(!isDarkMode)}
-          className="bg-gray-700 p-2 rounded-full"
+          onClick={() => setDarkMode(!darkMode)}
+          className={`${darkMode ? "bg-gray-700" : ""} p-2 rounded-full`}
         >
-          {isDarkMode ? <Sun size={20} /> : <Moon size={20} />}
+          {darkMode ? <Sun size={20} /> : <Moon size={20} />}
         </button>
       </div>
     </header>
@@ -92,6 +100,8 @@ Header.propTypes = {
       base_unit: PropTypes.string.isRequired,
     })
   ).isRequired,
+  darkMode: PropTypes.bool.isRequired,
+  setDarkMode: PropTypes.func.isRequired,
 };
 
 export default Header;

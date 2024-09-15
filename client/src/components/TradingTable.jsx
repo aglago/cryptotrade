@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import { ArrowUpRight, ArrowDownRight } from "lucide-react";
 
-const TradingTable = ({ trades }) => (
+const TradingTable = ({ trades, darkMode }) => (
   <div className="overflow-x-auto">
     <table className="w-full text-center border-separate border-spacing-y-4 sm:border-spacing-y-6">
       <thead className="hidden sm:table-header-group">
@@ -18,26 +18,34 @@ const TradingTable = ({ trades }) => (
         {trades.map((trade, index) => (
           <tr
             key={index}
-            className="bg-gray-800 flex flex-col sm:table-row mb-4 sm:mb-0"
+            className={`${
+              darkMode ? "bg-gray-800" : "bg-gray-100"
+            } flex flex-col sm:table-row mb-4 sm:mb-0`}
           >
             <td className="py-2 sm:py-4 px-2 sm:px-4 flex justify-between sm:table-cell">
               <span className="sm:hidden font-bold">#</span>
-              {index + 1}
+              <span className={`${darkMode ? "text-white" : "text-black"}`}>
+                {index + 1}
+              </span>
             </td>
             <td className="py-2 sm:py-4 px-2 sm:px-4 flex justify-between items-center sm:table-cell">
               <span className="sm:hidden font-bold">Platform</span>
               <div className="flex items-center justify-center">
                 <span className="w-4 h-4 sm:w-6 sm:h-6 mr-2 bg-gray-600 rounded-full"></span>
-                {trade.platform}
+                <span className={`${darkMode ? "text-white" : "text-black"}`}>
+                  {trade.platform}
+                </span>
               </div>
             </td>
             <td className="py-2 sm:py-4 px-2 sm:px-4 flex justify-between sm:table-cell">
-              <span className="sm:hidden font-bold">Last Traded Price</span>₹{" "}
-              {trade.lastPrice.toLocaleString()}
+              <span className="sm:hidden font-bold">Last Traded Price</span>
+              <span className={`${darkMode ? "text-white" : "text-black"}`}>
+                ₹ {trade.lastPrice.toLocaleString()}
+              </span>
             </td>
             <td className="py-2 sm:py-4 px-2 sm:px-4 flex justify-between sm:table-cell">
               <span className="sm:hidden font-bold">Buy / Sell Price</span>
-              <span>
+              <span className={`${darkMode ? "text-white" : "text-black"}`}>
                 ₹ {trade.buyPrice.toLocaleString()} / ₹{" "}
                 {trade.sellPrice.toLocaleString()}
               </span>
@@ -86,6 +94,7 @@ TradingTable.propTypes = {
       savings: PropTypes.number.isRequired,
     })
   ).isRequired,
+  darkMode: PropTypes.bool.isRequired,
 };
 
 export default TradingTable;
