@@ -23,13 +23,25 @@ const TradingTable = ({ trades, darkMode }) => (
             } flex flex-col sm:table-row mb-4 sm:mb-0`}
           >
             <td className="py-2 sm:py-4 px-2 sm:px-4 flex justify-between sm:table-cell">
-              <span className="sm:hidden font-bold">#</span>
+              <span
+                className={`${
+                  darkMode ? "" : "text-gray-800"
+                } sm:hidden font-bold`}
+              >
+                #
+              </span>
               <span className={`${darkMode ? "text-white" : "text-black"}`}>
                 {index + 1}
               </span>
             </td>
             <td className="py-2 sm:py-4 px-2 sm:px-4 flex justify-between items-center sm:table-cell">
-              <span className="sm:hidden font-bold">Platform</span>
+              <span
+                className={`${
+                  darkMode ? "" : "text-gray-800"
+                } sm:hidden font-bold`}
+              >
+                Platform
+              </span>
               <div className="flex items-center justify-center">
                 <span className="w-4 h-4 sm:w-6 sm:h-6 mr-2 bg-gray-600 rounded-full"></span>
                 <span className={`${darkMode ? "text-white" : "text-black"}`}>
@@ -38,13 +50,25 @@ const TradingTable = ({ trades, darkMode }) => (
               </div>
             </td>
             <td className="py-2 sm:py-4 px-2 sm:px-4 flex justify-between sm:table-cell">
-              <span className="sm:hidden font-bold">Last Traded Price</span>
+              <span
+                className={`${
+                  darkMode ? "" : "text-gray-800"
+                } sm:hidden font-bold`}
+              >
+                Last Traded Price
+              </span>
               <span className={`${darkMode ? "text-white" : "text-black"}`}>
                 ₹ {trade.lastPrice.toLocaleString()}
               </span>
             </td>
             <td className="py-2 sm:py-4 px-2 sm:px-4 flex justify-between sm:table-cell">
-              <span className="sm:hidden font-bold">Buy / Sell Price</span>
+              <span
+                className={`${
+                  darkMode ? "" : "text-gray-800"
+                } sm:hidden font-bold`}
+              >
+                Buy / Sell Price
+              </span>
               <span className={`${darkMode ? "text-white" : "text-black"}`}>
                 ₹ {trade.buyPrice.toLocaleString()} / ₹{" "}
                 {trade.sellPrice.toLocaleString()}
@@ -55,7 +79,13 @@ const TradingTable = ({ trades, darkMode }) => (
                 trade.difference > 0 ? "text-green-500" : "text-red-500"
               }`}
             >
-              <span className="sm:hidden font-bold">Difference</span>
+              <span
+                className={`${
+                  darkMode ? "" : "text-gray-800"
+                } sm:hidden font-bold`}
+              >
+                Difference
+              </span>
               <span>
                 {trade.difference > 0 ? (
                   <ArrowUpRight size={16} className="inline" />
@@ -70,7 +100,13 @@ const TradingTable = ({ trades, darkMode }) => (
                 trade.savings > 0 ? "text-green-500" : "text-red-500"
               }`}
             >
-              <span className="sm:hidden font-bold">Savings</span>
+              <span
+                className={`${
+                  darkMode ? "" : "text-gray-800"
+                } sm:hidden font-bold`}
+              >
+                Savings
+              </span>
               <span>
                 {trade.savings > 0 ? "▲" : "▼"} ₹{" "}
                 {Math.abs(trade.savings).toLocaleString()}
